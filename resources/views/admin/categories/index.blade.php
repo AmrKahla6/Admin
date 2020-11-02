@@ -7,8 +7,8 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">الأحياء </h3>
-                    <button style="float:left" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-addclass"><i class="fa fa-plus" aria-hidden="true"></i> إضافة حي جديد</button>
+                    <h3 class="box-title">المضاف مؤخرا</h3>
+                    <button style="float:left" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-addclass"><i class="fa fa-plus" aria-hidden="true"></i> إضافة جديد</button>
                 </div>
 
                 <div class="modal fade" id="modal-addclass" style="display: none;">
@@ -17,36 +17,46 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span></button>
-                            <h4 class="modal-title">إضافة حي جديد  </h4>
+                            <h4 class="modal-title">إضافة صالون جديد  </h4>
                         </div>
                         <div class="modal-body">
-                            {{ Form::open(array('method' => 'POST','files'=>true,'url' => 'adminpanel/districts')) }}
+                            {{ Form::open(array('method' => 'POST','files'=>true,'url' => 'adminpanel/categories')) }}
 
                                 <div class="form-group col-md-12">
-                                    <label>اسم الحي</label>
+                                    <label>اسم الصالون</label>
                                     <div class="form-group col-md-12">
-                                        <input style="width:100%;" type="text" class="form-control" name="name" placeholder="اسم الحي"  required>
+                                        <input style="width:100%;" type="text" class="form-control" name="name" placeholder="اسم الصالون"  required>
                                         @if ($errors->has('name'))
                                         <div style="color: crimson;font-size: 18px;" class="error">{{ $errors->first('name') }}</div>
                                         @endif
                                     </div>
                                 </div>
 
-                                <div class="form-group col-md-12">
-                                    <label>اختر المدينة</label>
-                                    <div class="form-group col-md-12">
-                                        <select name="city" id="">
-                                            <option value="">اختر المدينة</option>
-                                            @foreach ($cities as $city)
-
-                                        <option value="{{$city->id}}">{{$city->name_ar}}</option>
-
-                                            @endforeach
-                                        </select>
+                                <div class="col-md-12">
+                                    <div class="box box-info">
+                                        <div class="box-header">
+                                        <h3 class="box-title" > تفاصيل الصالون </h3>
+                                        </div>
+                                        <div class="box-body pad">
+                                            <textarea id="editor1" name="des" rows="10" cols="167" required>{!! old('des') !!}</textarea>
+                                            @if ($errors->has('des'))
+                                                <div style="color: crimson;font-size: 18px;" class="error">{{ $errors->first('des') }}</div>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
 
-
+                                <div class="form-group col-md-12">
+                                    <label>اختر المدينة</label>
+                                    <div class="form-group col-md-12">
+                                        <select name="city_id" id="">
+                                         {{-- <option value="">اختر المدينة</option> --}}
+                                         @foreach ($cities as $city)
+                                               <option  value="{{$city->id}}">{{$city->name_ar}}</option>
+                                         @endforeach
+                                        </select>
+                                     </div>
+                                </div>
 
                                 <button type="submit" class="btn btn-primary col-md-offset-4 col-md-4">اضافة</button>
                             {!! Form::close() !!}
@@ -66,65 +76,82 @@
                                 <thead>
                                     <tr>
 
-                                        <th>الحي</th>
-                                        <th>المدينة</th>
-                                        <th> تعديل </th>
+                                        <th>الاسم</th>
+                                        <th>معلومات عنه</th>
+                                        <th>المدينه</th>
+                                        <th>تعديل</th>
                                         <th> حذف</th>
                                         {{-- <th width="50px"><input type="checkbox" id="master"></th> --}}
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach($districts as $district)
+                                    @foreach($categories as $category)
                                     <?php
-                                    $city  = DB::table('cities')->where('id',$district->cities_id)->first();
+                                    $city  = DB::table('cities')->where('id',$category->city_id)->first();
                                      ?>
                                         <tr>
                                             <td>
-                                                {{ $district->name}}
-                                            </td>
-                                            <td>
-                                                {{ $city->name_ar}}
-                                            </td>
-
-
-                                            <td>
-                                                <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#modal-upclass{{$district->id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                                {{ $category->name}}
                                             </td>
 
                                             <td>
-                                                {{ Form::open(array('method' => 'DELETE',"onclick"=>"return confirm('هل انت متأكد ؟!')",'files' => true,'url' => array('adminpanel/districts/'.$district->id))) }}
+                                                {{ $category->des}}
+                                            </td>
+                                            <td>
+                                                {{ $city->name_ar }}
+                                            </td>
+
+                                            <td>
+                                                <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#modal-upclass{{$category->id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                            </td>
+
+                                            <td>
+                                                {{ Form::open(array('method' => 'DELETE',"onclick"=>"return confirm('هل انت متأكد ؟!')",'files' => true,'url' => array('adminpanel/categories/'.$category->id))) }}
                                                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                                 {!! Form::close() !!}
                                             </td>
                                             {{-- <td><input type="checkbox" class="sub_chk"      data-id="{{$cutting->id}}"></td> --}}
                                         </tr>
 
-                                    <div class="modal fade" id="modal-upclass{{$district->id}}" style="display: none;">
+                                    <div class="modal fade" id="modal-upclass{{$category->id}}" style="display: none;">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">×</span></button>
-                                                <h4 class="modal-title">تعديل الحي</h4>
+                                                <h4 class="modal-title">تعديل الصالون</h4>
                                             </div>
                                             <div class="modal-body">
-                                                {{ Form::open(array('method' => 'patch','files'=>true,'url' => 'adminpanel/districts/'.$district->id )) }}
+                                                {{ Form::open(array('method' => 'patch','files'=>true,'url' => 'adminpanel/categories/'.$category->id )) }}
 
                                                     <div class="form-group col-md-12">
-                                                        <label>اسم الحي</label>
+                                                        <label>اسم الصالون</label>
                                                         <div class="form-group col-md-12">
-                                                            <input style="width:100%;" type="text" class="form-control" name="name" placeholder="اسم الحي" value="{{$district->name}}" required>
+                                                            <input style="width:100%;" type="text" class="form-control" name="name" placeholder="اسم الصالون" value="{{$category->name}}" required>
                                                             @if ($errors->has('name'))
                                                             <div style="color: crimson;font-size: 18px;" class="error">{{ $errors->first('name') }}</div>
                                                             @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="box box-info">
+                                                            <div class="box-header">
+                                                            <h3 class="box-title" > تفاصيل الصالون </h3>
+                                                            </div>
+                                                            <div class="box-body pad">
+                                                                <textarea id="editor1" name="des" rows="10" cols="80" required>{!! $category->des !!}</textarea>
+                                                                @if ($errors->has('des'))
+                                                                    <div style="color: crimson;font-size: 18px;" class="error">{{ $errors->first('des') }}</div>
+                                                                @endif
+                                                            </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group col-md-12">
                                                         <label>اختر المدينة</label>
                                                         <div class="form-group col-md-12">
-                                                            <select name="city" id="">
+                                                            <select name="city_id" id="">
                                                              {{-- <option value="">اختر المدينة</option> --}}
                                                              @foreach ($cities as $city)
                                                                    <option  value="{{$city->id}}">{{$city->name_ar}}</option>
@@ -132,6 +159,9 @@
                                                             </select>
                                                          </div>
                                                     </div>
+
+
+
                                                     <button type="submit" class="btn btn-primary col-md-offset-4 col-md-4">تعديل</button>
                                                 {!! Form::close() !!}
                                             </div>

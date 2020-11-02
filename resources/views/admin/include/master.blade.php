@@ -1,11 +1,11 @@
 <html>
 <html lang="en">
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> @yield('title') </title>
-  <title>@yield('title')</title>  
+  <title>@yield('title')</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="shortcut icon" href="{{asset('users/images/logo_bar.png')}}" />
   <!-- Tell the browser to be responsive to screen width -->
@@ -74,8 +74,8 @@
         top:94%;
         transition: 0.2s;
     }
-    /* .sct-link-top_mod1 .nav-link:hover {  
-        top: 95%;   
+    /* .sct-link-top_mod1 .nav-link:hover {
+        top: 95%;
     } */
     .well2 {
         padding-top: 108px;
@@ -112,10 +112,10 @@
         .sct-link-top_mod1 .nav-link {
            top: 96%;
         }
-        /* .sct-link-top_mod1 .nav-link:hover {  
+        /* .sct-link-top_mod1 .nav-link:hover {
         top: 97%;    */
     }
-        
+
     }
  </style>
   <!-- Google Font -->
@@ -127,7 +127,7 @@
  <div class="wrapper">
 
  <header class="main-header" style="color:#e24800">
-    
+
     <!-- Logo -->
     <a href="{{asset('adminpanel')}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -138,7 +138,7 @@
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
-      
+
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
     </a>
@@ -146,7 +146,7 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
 
-     
+
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -159,21 +159,21 @@
               <!-- User image -->
               <li class="user-header">
                 <img src="{{asset('users/images/'.auth()->guard('admin')->user()->image)}}" class="img-circle" alt="User Image">
-                @if(auth()->guard('admin')->user()->id == 1) 
+                @if(auth()->guard('admin')->user()->id == 1)
                 <p>  الادمن - {{auth()->guard('admin')->user()->username}} </p>
-                @else 
+                @else
                 <p>{{auth()->guard('admin')->user()->username}} - مطور الموقع</p>
-                @endif  
+                @endif
               </li>
-             
+
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-right">
-                
+
                   @if(auth()->guard('admin')->user()->id == 1)
-                  <a href='{{asset("adminpanel/provider/". auth()->guard('admin')->user()->id )}}/edit' class="btn btn-default btn-flat">الصفحة الشخصية </a> 
+                  <a href='{{asset("adminpanel/provider/". auth()->guard('admin')->user()->id )}}/edit' class="btn btn-default btn-flat">الصفحة الشخصية </a>
                   <a href="{{asset('adminpanel/provider')}}" class="btn btn-default btn-flat">اضافة مطور</a>
-                  @else 
+                  @else
                   <a href='{{asset("adminpanel/provider/". auth()->guard('admin')->user()->id )}}/edit' class="btn btn-default btn-flat">الصفحة الشخصية</a>
                   @endif
                 </div>
@@ -185,7 +185,7 @@
               </li>
             </ul>
           </li>
-          
+
         </ul>
       </div>
     </nav>
@@ -206,14 +206,14 @@
           @else
           <p>{{auth()->guard('admin')->user()->username}}</p>
           <i class="fa fa-circle text-success"></i> مطور الموقع
-        @endif  
+        @endif
         </div>
       </div>
-    
+
     <ul class="sidebar-menu">
-    
+
         @if($mainactive=='users')
-          <li class="active treeview"> 
+          <li class="active treeview">
         @else
           <li class="treeview">
         @endif
@@ -226,7 +226,7 @@
           </ul>
 
           @if($mainactive=='categories')
-            <li class="active treeview"> 
+            <li class="active treeview">
           @else
             <li class="treeview">
           @endif
@@ -234,13 +234,13 @@
               <i class="fa fa-dashboard"></i> <span>الاقسام</span><i class="fa fa-angle-left pull-left"></i>
             </a>
             <ul class="treeview-menu">
-              
-              <li  @if($subactive=='category') class="active" @endif><a href="{{asset('adminpanel/categories')}}"><i class="fa fa-circle-o"></i>قسم التقطيع</a></li>
-              <li  @if($subactive=='wcategory') class="active" @endif><a href="{{asset('adminpanel/wcategories')}}"><i class="fa fa-circle-o"></i>قسم الأوزان </a></li>
+
+              <li  @if($subactive=='category') class="active" @endif><a href="{{asset('adminpanel/categories')}}"><i class="fa fa-circle-o"></i>المضاف مؤخرا</a></li>
+              {{-- <li  @if($subactive=='wcategory') class="active" @endif><a href="{{asset('adminpanel/wcategories')}}"><i class="fa fa-circle-o"></i>قسم الأوزان </a></li> --}}
             </ul>
-            
+
             @if($mainactive=='cities')
-            <li class="active treeview"> 
+            <li class="active treeview">
           @else
             <li class="treeview">
           @endif
@@ -252,9 +252,9 @@
               <li  @if($subactive=='district') class="active" @endif><a href="{{asset('adminpanel/districts')}}"><i class="fa fa-circle-o"></i>الأحياء</a></li>
             </ul>
 
-        
+
         @if($mainactive=='items')
-          <li class="active treeview"> 
+          <li class="active treeview">
         @else
           <li class="treeview">
         @endif
@@ -267,7 +267,7 @@
           </ul>
 
         @if($mainactive=='orders')
-          <li class="active treeview"> 
+          <li class="active treeview">
         @else
           <li class="treeview">
         @endif
@@ -279,7 +279,7 @@
           </ul>
 
         @if($mainactive=='bills')
-          <li class="active treeview"> 
+          <li class="active treeview">
         @else
           <li class="treeview">
         @endif
@@ -290,10 +290,10 @@
             <li  @if($subactive=='itemorders') class="active" @endif><a href="{{asset('adminpanel/bills')}}"><i class="fa fa-circle-o"></i>كل الفواتير </a></li>
           </ul>
 
-       
-          
+
+
         @if($mainactive=='transfers')
-          <li class="active treeview"> 
+          <li class="active treeview">
         @else
           <li class="treeview">
         @endif
@@ -303,9 +303,9 @@
           <ul class="treeview-menu">
               <li  @if($subactive=='transfer') class="active" @endif><a href="{{asset('adminpanel/transfers')}}"><i class="fa fa-circle-o"></i>كل التحويلات</a></li>
           </ul>
-        
+
         @if($mainactive=='setting')
-          <li class="active treeview"> 
+          <li class="active treeview">
         @else
           <li class="treeview">
         @endif
@@ -313,12 +313,12 @@
               <i class="fa fa-dashboard"></i> <span> الاعدادات </span><i class="fa fa-angle-left pull-left"></i>
           </a>
           <ul class="treeview-menu">
-              
+
               <!--<li  @if($subactive=='privacy') class="active" @endif><a href="{{asset('adminpanel/privacy')}}"><i class="fa fa-circle-o"></i>سياسة التطبيق</a></li>-->
               <li  @if($subactive=='about') class="active" @endif><a href="{{asset('adminpanel/about')}}"><i class="fa fa-circle-o"></i>حول التطبيق</a></li>
               <li  @if($subactive=='conditions') class="active" @endif><a href="{{asset('adminpanel/conditions')}}"><i class="fa fa-circle-o"></i>الشروط والاحكام</a></li>
               <li  @if($subactive=='changelogo') class="active" @endif><a href="{{asset('adminpanel/setapp')}}"><i class="fa fa-circle-o"></i>إعدادات التطبيق</a></li>
-          </ul>          
+          </ul>
     </ul>
   </section>
 </aside>
@@ -328,7 +328,7 @@
       <div style="color: green;font-size: 18px;padding: 1%;" class="text-center">{{session('success')}}</div>
       {{session()->forget('success')}}
     @endif
-     @yield('content') 
+     @yield('content')
   </div>
 
 <footer class="main-footer">
@@ -394,7 +394,7 @@
         this.value = this.value.replace(/[^0-9\.]/g,'');
     });
 
-    function scorePassword(pass) 
+    function scorePassword(pass)
     {
             var score = 0;
             if (!pass)
@@ -424,7 +424,7 @@
             return parseInt(score);
           }
 
-          function checkPassStrength(pass) 
+          function checkPassStrength(pass)
           {
             var score = scorePassword(pass);
             if (score > 80)
@@ -452,13 +452,13 @@
                 $('#errorpass').css('background-color','green');
                 $('#errorpass').css('display','block');
             }
-			else 
+			else
 			{
 				$('#errorpass').css('display','none');
 			}
         });
 
-        $("#confirmadminpass1").on("keypress keyup keydown", function() 
+        $("#confirmadminpass1").on("keypress keyup keydown", function()
         {
             var pass = $(this).val();
             if(pass == $("#adminpass1").val())
@@ -478,18 +478,18 @@
             }
         });
 
-        $("#oldpassword").on("keypress keyup keydown", function() 
+        $("#oldpassword").on("keypress keyup keydown", function()
             {
                 if($(this).val() == '' )
                 {
                   $("#adminpass1").prop('disabled',true);
                   $("#confirmadminpass1").prop('disabled',true);
                 }
-                else 
+                else
                 {
                   $("#adminpass1").prop('disabled',false);
                   $("#confirmadminpass1").prop('disabled',false);
-                  
+
                 }
             });
 
@@ -504,7 +504,7 @@
       'ordering'    : false,
       'info'        : false,
       'autoWidth'   : true
-    });  
+    });
   })
 
   $('#example4').DataTable({
@@ -514,7 +514,7 @@
       'ordering'    : false,
       'info'        : false,
       'autoWidth'   : false
-    }); 
+    });
 </script>
 <script>
     $(function () {
@@ -557,7 +557,7 @@
         {
           $('#companyinfo').css('display','block');
         }
-        else 
+        else
         {
           $('#companyinfo').css('display','none');
         }
@@ -589,7 +589,7 @@
       // $.notify("طلب جديد من "+data.name, "success");
       // var not = document.querySelector('.badge');
       // not.html +=1;
-      
+
       // alertify.notify('<a href="http://localhost/alamana/adminpanel/orders">طلب جديد من </a>', 'success', 5, function(){  console.log('dismissed'); });
       // console.log('kkkkkkkk');
     });

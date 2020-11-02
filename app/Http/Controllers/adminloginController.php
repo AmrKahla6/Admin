@@ -35,7 +35,7 @@ class adminloginController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -53,6 +53,8 @@ class adminloginController extends Controller
     {
         $username = $request['username'];
         $pass     = $request['pass'];
+
+        // dd($username , $pass);
 
         if (Auth::guard('admin')->attempt(['username' => $username, 'password' => $pass])) {
             return redirect('adminpanel');

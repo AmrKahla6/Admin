@@ -34,7 +34,7 @@ Route::group(['middleware' => ['adminauth:admin']], function () {
   Route::delete('myordersDeleteAll', 'adminorderController@deleteAll');
   Route::resource('adminpanel/transfers', 'admintransferController');
   Route::delete('mytransferDeleteAll', 'admintransferController@deleteAll');
-  Route::resource('adminpanel/categories', 'admincuttingsController');
+  Route::resource('adminpanel/categories', 'adminCategoryController');
   Route::resource('adminpanel/wcategories', 'adminweightsController');
   Route::resource('adminpanel/cities', 'adminCityController');
   Route::resource('adminpanel/districts', 'adminDistrictController');

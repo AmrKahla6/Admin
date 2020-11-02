@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Mail;
 use DB;
 use Carbon\Carbon;
 use App\order_item;
-use App\Cutting;
+use App\Category;
+use App\City;
 
-
-class admincuttingsController extends Controller
+class adminCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,9 +26,10 @@ class admincuttingsController extends Controller
         $mainactive      = 'categories';
         $subactive       = 'category';
         $logo            = DB::table('settings')->value('logo');
+        $cities          = City::all();
         // $allcategories   = category::where('parent',0)->get();
-        $cuttings = Cutting::all();
-        return view('admin.categories.cuttings', compact('mainactive', 'subactive', 'logo', 'cuttings'));
+        $categories = Category::all();
+        return view('admin.categories.index', compact('mainactive', 'subactive', 'logo', 'categories' , 'cities'));
     }
 
     /**
@@ -50,12 +51,15 @@ class admincuttingsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'cutting_name'   => 'required',
-
+            'name'   => 'required',
+            'des'   => 'required',
+            'city_id'   => 'required',
         ]);
 
-        $newcategory              = new Cutting;
-        $newcategory->cutting_name = $request['cutting_name'];
+        $newcategory              = new Category;
+        $newcategory->name = $request['name'];
+        $newcategory->des = $request['des'];
+        $newcategory->city_id = $request['city_id'];
 
         $newcategory->save();
         session()->flash('success', 'تم اضافة نوع تقطيع جديد');
@@ -72,7 +76,7 @@ class admincuttingsController extends Controller
     {
         $mainactive      = 'categories';
         $subactive       = 'category';
-        $logo         = DB::table('settings')->value('logo');
+        $logo            = DB::table('settings')->value('logo');
         // $showcategory = category::where('id',$id)->first();
         $showcategory = Cutting::where('id', $id)->first();
         if ($showcategory) {
@@ -101,13 +105,16 @@ class admincuttingsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $upcategory = Cutting::find($id);
+        $upcategory = Category::find($id);
         $this->validate($request, [
-            'cutting_name'   => 'required',
-
+            'name'   => 'required',
+            'des'   => 'required',
+            'city_id'   => 'required',
         ]);
 
-        $upcategory->cutting_name     = $request['cutting_name'];
+        $upcategory->name        = $request['name'];
+        $upcategory->des         = $request['des'];
+        $upcategory->city_id     = $request['city_id'];
 
 
         $upcategory->save();
@@ -118,16 +125,16 @@ class admincuttingsController extends Controller
     // public static function delete_parent($id)
     // {
     //     $category_parent = Cutting::where('parent', $id)->get();
-    //     foreach ($category_parent as $sub) 
+    //     foreach ($category_parent as $sub)
     //     {
     //         self::delete_parent($sub->id);
     //         $subdepartment = Cutting::find($sub->id);
-    //         if (!empty($subdepartment)) 
+    //         if (!empty($subdepartment))
     //         {
     //             $subdepartment->delete();
     //         }
     //     }
-    //     $dep = Cutting::find($id)->delete(); 
+    //     $dep = Cutting::find($id)->delete();
     // }
 
     /**
@@ -138,7 +145,7 @@ class admincuttingsController extends Controller
      */
     public function destroy($id)
     {
-        $delcategory = Cutting::find($id);
+        $delcategory = Category::find($id);
         // if($delcategory)
         // {
         //     self::delete_parent($id);
@@ -148,13 +155,13 @@ class admincuttingsController extends Controller
         return back();
     }
 
-    public function deleteAll(Request $request)
-    {
-        $ids    = $request->ids;
-        $categories = DB::table("cuttings")->whereIn('id', explode(",", $ids))->get();
-        foreach ($categories as $category) {
-            self::delete_parent($category->id);
-        }
-        return response()->json(['success' => "تم الحذف بنجاح"]);
-    }
+    // public function deleteAll(Request $request)
+    // {
+    //     $ids    = $request->ids;
+    //     $categories = DB::table("cuttings")->whereIn('id', explode(",", $ids))->get();
+    //     foreach ($categories as $category) {
+    //         self::delete_parent($category->id);
+    //     }
+    //     return response()->json(['success' => "تم الحذف بنجاح"]);
+    // }
 }
