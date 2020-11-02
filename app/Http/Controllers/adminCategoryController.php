@@ -61,6 +61,13 @@ class adminCategoryController extends Controller
         $newcategory->des = $request['des'];
         $newcategory->city_id = $request['city_id'];
 
+        if ($request->hasFile('image')) {
+            $category = $request['image'];
+            $img_name = rand(0, 999) . '.' . $category->getClientOriginalExtension();
+            $category->move(base_path('users/images/'), $img_name);
+            $newcategory->image   = $img_name;
+        }
+
         $newcategory->save();
         session()->flash('success', 'تم اضافة نوع تقطيع جديد');
         return back();
@@ -77,13 +84,11 @@ class adminCategoryController extends Controller
         $mainactive      = 'categories';
         $subactive       = 'category';
         $logo            = DB::table('settings')->value('logo');
-        // $showcategory = category::where('id',$id)->first();
-        $showcategory = Cutting::where('id', $id)->first();
-        if ($showcategory) {
-            $allcategories = Cutting::where('parent', $id)->get();
-            return view('admin.categories.show', compact('mainactive', 'subactive', 'logo', 'showcategory', 'allcategories'));
+        $category        = Category::find($id);
+        $cities          = City::all();
+        return view('admin.categories.show', compact('mainactive', 'subactive', 'logo', 'cities' , 'category'));
         }
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -107,14 +112,21 @@ class adminCategoryController extends Controller
     {
         $upcategory = Category::find($id);
         $this->validate($request, [
-            'name'   => 'required',
-            'des'   => 'required',
+            'name'      => 'required',
+            'des'       => 'required',
             'city_id'   => 'required',
         ]);
 
         $upcategory->name        = $request['name'];
         $upcategory->des         = $request['des'];
         $upcategory->city_id     = $request['city_id'];
+
+        if ($request->hasFile('image')) {
+            $category  = $request['image'];
+            $img_name  = rand(0, 999) . '.' . $category->getClientOriginalExtension();
+            $category->move(base_path('users/images/'), $img_name);
+            $upcategory->image   = $img_name;
+        }
 
 
         $upcategory->save();

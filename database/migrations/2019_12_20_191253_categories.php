@@ -17,9 +17,10 @@ class Categories extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('des');
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('city_id');
 
-            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('city_id')->references('id')->on('cities');
             $table->timestamps();
         });
     }

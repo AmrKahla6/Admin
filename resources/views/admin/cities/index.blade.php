@@ -71,8 +71,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>المدينة بالعربيه</th>
-                                        <th>المدينة بالانجليزيه</th>
-                                        <th>صوره</th>
+                                        <th>مشاهدة</th>
                                         <th> تعديل </th>
                                         <th> حذف</th>
                                         {{-- <th width="50px"><input type="checkbox" id="master"></th> --}}
@@ -88,11 +87,9 @@
                                             <td>
                                                 {{ $city->name_ar}}
                                             </td>
-                                            <td>
-                                                {{ $city->name_en}}
-                                            </td>
-                                           <td>
-                                              <img src="{{asset('users/images/'.$city->image)}}" style="width:100px" class="img-thumbnail" alt="Not Found">
+
+                                          <td>
+                                            <a href='{{asset("adminpanel/cities/".$city->id)}}' class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                           </td>
 
                                             <td>

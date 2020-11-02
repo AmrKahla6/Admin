@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use DB;
 use App\member;
-use App\item;
+use App\Service;
+use App\Category;
 use App\order;
 use App\order_item;
 use App\setting;
 
-class adminitemController extends Controller
+class adminserviceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,12 +23,12 @@ class adminitemController extends Controller
 
     public function index()
     {
-        $mainactive = 'items';
-        $subactive  = 'item';
+        $mainactive = 'services';
+        $subactive  = 'service';
         $logo       = DB::table('settings')->value('logo');
-        $allitems   = item::orderBy('id', 'desc')->get();
+        $services   = Service::orderBy('id', 'desc')->get();
 
-        return view('admin.items.index', compact('mainactive', 'logo', 'subactive', 'allitems'));
+        return view('admin.services.index', compact('mainactive', 'logo', 'subactive', 'services'));
     }
 
     /**
@@ -37,10 +38,11 @@ class adminitemController extends Controller
      */
     public function create()
     {
-        $mainactive = 'items';
-        $subactive  = 'additem';
-        $logo       = DB::table('settings')->value('logo');
-        return view('admin.items.create', compact('mainactive', 'subactive', 'logo'));
+        $mainactive   = 'services';
+        $subactive    = 'addservice';
+        $logo         = DB::table('settings')->value('logo');
+        $categories   = Category::get();
+        return view('admin.services.create', compact('mainactive', 'subactive', 'logo' ,'categories'));
     }
 
     /**
@@ -53,21 +55,24 @@ class adminitemController extends Controller
     {
 
         $this->validate($request, [
-            'artitle'     => 'required|max:200',
-            'price'       => 'required',
+            'name'              => 'required|max:200',
+            'des'               => 'required',
+            'price'             => 'required',
+            'category_id'       => 'required',
         ]);
-        $newitem                = new item;
-        $newitem->artitle       = $request['artitle'];
-        $newitem->price         = $request['price'];
-        $newitem->details       = $request['ardesc'];
+        $newservice                        = new Service;
+        $newservice->name                  = $request['name'];
+        $newservice->price                 = $request['price'];
+        $newservice->des                   = $request['des'];
+        $newservice->category_id           = $request['category_id'];
 
         if ($request->hasFile('image')) {
-            $item = $request['image'];
-            $img_name = rand(0, 999) . '.' . $item->getClientOriginalExtension();
-            $item->move(base_path('users/images/'), $img_name);
-            $newitem->image   = $img_name;
+            $service = $request['image'];
+            $img_name = rand(0, 999) . '.' . $service->getClientOriginalExtension();
+            $service->move(base_path('users/images/'), $img_name);
+            $newservice->image   = $img_name;
         }
-        $newitem->save();
+        $newservice->save();
         session()->flash('success', 'تم اضافة المنتج بنجاح');
         return back();
     }
@@ -80,12 +85,12 @@ class adminitemController extends Controller
      */
     public function show($id)
     {
-        $mainactive = 'items';
-        $subactive  = 'item';
-        $logo       = DB::table('settings')->value('logo');
-        $showitem   = item::findorfail($id);
+        $mainactive      = 'services';
+        $subactive       = 'addservice';
+        $logo            = DB::table('settings')->value('logo');
+        $showservice     = Service::findorfail($id);
 
-        return view('admin.items.show', compact('mainactive', 'logo', 'subactive', 'showitem'));
+        return view('admin.services.show', compact('mainactive', 'logo', 'subactive', 'showservice'));
     }
 
     /**
@@ -96,11 +101,12 @@ class adminitemController extends Controller
      */
     public function edit($id)
     {
-        $mainactive = 'items';
-        $subactive  = 'item';
-        $logo       = DB::table('settings')->value('logo');
-        $editem     = item::findorfail($id);
-        return view('admin.items.edit', compact('mainactive', 'logo', 'subactive', 'editem'));
+        $mainactive   = 'services';
+        $subactive    = 'addservice';
+        $logo         = DB::table('settings')->value('logo');
+        $category     = Category::findorfail($id);
+        $service      = Service::findorfail($id);
+        return view('admin.services.edit', compact('mainactive', 'logo', 'subactive', 'service' , 'category'));
     }
 
     /**
@@ -156,17 +162,17 @@ class adminitemController extends Controller
     public function destroy($id)
     {
 
-        $delitem = item::find($id);
-        if ($delitem) {
-            $order_items = order_item::where('item_id', $delitem->id)->get();
-            foreach ($order_items as $order_item) {
-                $order =  order::where('id', $order_item->order_id)->first();
-                if ($order) {
-                    $order->delete();
-                }
-                $order_item->delete();
-            }
-        }
+        $delitem = Service::find($id);
+        // if ($delservice) {
+        //     $categories = Category::where('category_id', $delitem->id)->get();
+        //     foreach ($categories as $category) {
+        //         $order =  order::where('id', $order_item->order_id)->first();
+        //         if ($order) {
+        //             $order->delete();
+        //         }
+        //         $order_item->delete();
+        //     }
+        // }
         $delitem->delete();
         session()->flash('success', 'تم حذف المنتج بنجاح');
         return back();

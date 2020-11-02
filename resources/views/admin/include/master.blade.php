@@ -235,7 +235,7 @@
             </a>
             <ul class="treeview-menu">
 
-              <li  @if($subactive=='category') class="active" @endif><a href="{{asset('adminpanel/categories')}}"><i class="fa fa-circle-o"></i>المضاف مؤخرا</a></li>
+              <li  @if($subactive=='category') class="active" @endif><a href="{{asset('adminpanel/categories')}}"><i class="fa fa-circle-o"></i>المشاغل</a></li>
               {{-- <li  @if($subactive=='wcategory') class="active" @endif><a href="{{asset('adminpanel/wcategories')}}"><i class="fa fa-circle-o"></i>قسم الأوزان </a></li> --}}
             </ul>
 
@@ -259,11 +259,11 @@
           <li class="treeview">
         @endif
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>المنتجات</span><i class="fa fa-angle-left pull-left"></i>
+            <i class="fa fa-dashboard"></i> <span>الخدمات</span><i class="fa fa-angle-left pull-left"></i>
           </a>
           <ul class="treeview-menu">
-            <li  @if($subactive=='additem') class="active" @endif><a href="{{asset('adminpanel/items/create')}}"><i class="fa fa-circle-o"></i>إضافة منتج</a></li>
-            <li  @if($subactive=='item') class="active" @endif><a href="{{asset('adminpanel/items')}}"><i class="fa fa-circle-o"></i>كل المنتجات</a></li>
+            <li  @if($subactive=='services') class="active" @endif><a href="{{asset('adminpanel/services/create')}}"><i class="fa fa-circle-o"></i>إضافة خدمه</a></li>
+            <li  @if($subactive=='addservice') class="active" @endif><a href="{{asset('adminpanel/services')}}"><i class="fa fa-circle-o"></i>كل الخدمات</a></li>
           </ul>
 
         @if($mainactive=='orders')

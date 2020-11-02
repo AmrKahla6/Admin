@@ -13,22 +13,17 @@ class Items extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('category_id');
-            $table->integer('code')->nullable();
-            $table->string('artitle');
-            $table->string('entitle');
+            $table->string('name');
             $table->integer('price');
-            $table->string('discountprice')->nullable();
-            $table->string('offer');
-            $table->string('ardesc');
-            $table->string('endesc');
-            $table->string('whatsapp');
-            $table->boolean('suspensed')->default(0);
-            $table->timestamps();
+            $table->string('des');
+            $table->string('image');
+            $table->unsignedBigInteger('category_id');
 
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->timestamps();
+
         });
     }
 

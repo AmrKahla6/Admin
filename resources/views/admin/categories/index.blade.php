@@ -7,8 +7,8 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">المضاف مؤخرا</h3>
-                    <button style="float:left" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-addclass"><i class="fa fa-plus" aria-hidden="true"></i> إضافة جديد</button>
+                    <h3 class="box-title">المشاغل</h3>
+                    <button style="float:left" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-addclass"><i class="fa fa-plus" aria-hidden="true"></i> إضافة مشغل جديد</button>
                 </div>
 
                 <div class="modal fade" id="modal-addclass" style="display: none;">
@@ -17,15 +17,15 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span></button>
-                            <h4 class="modal-title">إضافة صالون جديد  </h4>
+                            <h4 class="modal-title">إضافة مشغل جديد  </h4>
                         </div>
                         <div class="modal-body">
                             {{ Form::open(array('method' => 'POST','files'=>true,'url' => 'adminpanel/categories')) }}
 
                                 <div class="form-group col-md-12">
-                                    <label>اسم الصالون</label>
+                                    <label>اسم المشغل</label>
                                     <div class="form-group col-md-12">
-                                        <input style="width:100%;" type="text" class="form-control" name="name" placeholder="اسم الصالون"  required>
+                                        <input style="width:100%;" type="text" class="form-control" name="name" placeholder="اسم المشغل"  required>
                                         @if ($errors->has('name'))
                                         <div style="color: crimson;font-size: 18px;" class="error">{{ $errors->first('name') }}</div>
                                         @endif
@@ -35,7 +35,7 @@
                                 <div class="col-md-12">
                                     <div class="box box-info">
                                         <div class="box-header">
-                                        <h3 class="box-title" > تفاصيل الصالون </h3>
+                                        <h3 class="box-title" > تفاصيل المشغل </h3>
                                         </div>
                                         <div class="box-body pad">
                                             <textarea id="editor1" name="des" rows="10" cols="167" required>{!! old('des') !!}</textarea>
@@ -44,6 +44,14 @@
                                             @endif
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label>صورة المشغل</label>
+                                    <input type="file" name="image" >
+                                    @if ($errors->has('image'))
+                                        <div style="color: crimson;font-size: 18px;" class="error">{{ $errors->first('image') }}</div>
+                                    @endif
                                 </div>
 
                                 <div class="form-group col-md-12">
@@ -77,8 +85,7 @@
                                     <tr>
 
                                         <th>الاسم</th>
-                                        <th>معلومات عنه</th>
-                                        <th>المدينه</th>
+                                        <th>مشاهده</th>
                                         <th>تعديل</th>
                                         <th> حذف</th>
                                         {{-- <th width="50px"><input type="checkbox" id="master"></th> --}}
@@ -88,20 +95,15 @@
                                 <tbody>
                                     @foreach($categories as $category)
                                     <?php
-                                    $city  = DB::table('cities')->where('id',$category->city_id)->first();
+                                       $city  = DB::table('cities')->where('id',$category->city_id)->first();
                                      ?>
                                         <tr>
                                             <td>
                                                 {{ $category->name}}
                                             </td>
-
                                             <td>
-                                                {{ $category->des}}
-                                            </td>
-                                            <td>
-                                                {{ $city->name_ar }}
-                                            </td>
-
+                                                <a href='{{asset("adminpanel/categories/".$category->id)}}' class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                              </td>
                                             <td>
                                                 <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#modal-upclass{{$category->id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                             </td>
@@ -120,15 +122,15 @@
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">×</span></button>
-                                                <h4 class="modal-title">تعديل الصالون</h4>
+                                                <h4 class="modal-title">تعديل المشغل</h4>
                                             </div>
                                             <div class="modal-body">
                                                 {{ Form::open(array('method' => 'patch','files'=>true,'url' => 'adminpanel/categories/'.$category->id )) }}
 
                                                     <div class="form-group col-md-12">
-                                                        <label>اسم الصالون</label>
+                                                        <label>اسم المشغل</label>
                                                         <div class="form-group col-md-12">
-                                                            <input style="width:100%;" type="text" class="form-control" name="name" placeholder="اسم الصالون" value="{{$category->name}}" required>
+                                                            <input style="width:100%;" type="text" class="form-control" name="name" placeholder="اسم المشغل" value="{{$category->name}}" required>
                                                             @if ($errors->has('name'))
                                                             <div style="color: crimson;font-size: 18px;" class="error">{{ $errors->first('name') }}</div>
                                                             @endif
@@ -137,7 +139,7 @@
                                                     <div class="col-md-12">
                                                         <div class="box box-info">
                                                             <div class="box-header">
-                                                            <h3 class="box-title" > تفاصيل الصالون </h3>
+                                                            <h3 class="box-title" > تفاصيل المشغل </h3>
                                                             </div>
                                                             <div class="box-body pad">
                                                                 <textarea id="editor1" name="des" rows="10" cols="80" required>{!! $category->des !!}</textarea>
@@ -159,6 +161,17 @@
                                                             </select>
                                                          </div>
                                                     </div>
+
+                                                    <div class="form-group col-md-12">
+                                                        <label>صورة المدينة</label>
+                                                        <br>
+                                                        <input type="file" name="image" >
+                                                        <div style="padding: 2%;" class="col-md-3">
+                                                            <img class="img-thumbnail" style="width:100%; height:10%;" src="{{asset('users/images/'.$category->image)}}" alt="Not Found">
+                                                        </div>
+                                                    </div>
+
+
 
 
 

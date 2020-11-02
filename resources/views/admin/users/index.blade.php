@@ -5,27 +5,27 @@
 <section class="content">
     <div class="row">
         <div class="col-xs-12">
-        <div class="box box-primary">   
+        <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">كل العملاء</h3>
-            </div>    
+            </div>
                     <div class="active tab-pane" id="activity">
                         <div class="table-responsive box-body">
                             <button style="margin-bottom: 10px;float:left;" class="btn btn-danger delete_all" data-url="{{ url('myusersDeleteAll') }}"><i class="fa fa-trash-o" aria-hidden="true"></i> حذف المحدد</button>
                             <table id="example3" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="text-align:center;">الاسم بالكامل</th>
-                                            <th style="text-align:center;"> رقم الهاتف </th>
-                                            <th style="text-align:center;">  مشاهدة</th>
-                                            <th style="text-align:center;"> تعطيل </th>
-                                            <th style="text-align:center;"> تعديل </th>
-                                            <th style="text-align:center;"> حذف</th> 
+                                            <th>الاسم بالكامل</th>
+                                            <th> رقم الهاتف </th>
+                                            <th>  مشاهدة</th>
+                                            <th> تعطيل </th>
+                                            <th> تعديل </th>
+                                            <th> حذف</th>
                                             <th width="50px"><input type="checkbox" id="master"></th>
                                         </tr>
                                     </thead>
-                            
-                                    <tbody> 
+
+                                    <tbody>
                                         @foreach($allusers as $user)
                                             <tr>
                                                 <td>{{$user->name}}</td>
@@ -38,10 +38,10 @@
                                                 {{ Form::open(array('method' => 'patch',"onclick"=>"return confirm('هل انت متاكد ؟!')",'files' => true,'url' =>'adminpanel/users/'.$user->id )) }}
                                                     <input type="hidden" name="suspensed" >
                                                     <button type="submit" class="btn btn-default">
-                                                    @if($user->suspensed == 1) 
-                                                    <i style="color:crimson" class="fa fa-lock" aria-hidden="true"></i> 
-                                                    @else 
-                                                    <i style="color:#1FAB89" class="fa fa-unlock" aria-hidden="true"></i> 
+                                                    @if($user->suspensed == 1)
+                                                    <i style="color:crimson" class="fa fa-lock" aria-hidden="true"></i>
+                                                    @else
+                                                    <i style="color:#1FAB89" class="fa fa-unlock" aria-hidden="true"></i>
                                                     @endif
                                                     </button>
                                                 {!! Form::close() !!}
@@ -59,11 +59,11 @@
                                                  <td><input type="checkbox" class="sub_chk" data-id="{{$user->id}}"></td>
                                             </tr>
                                     @endforeach
-                                    </tbody> 
+                                    </tbody>
                                 </table>
                         </div>
                     </div>
-            </div>    
+            </div>
         </div>
         </div>
     </div>
@@ -73,28 +73,28 @@
         $(document).ready(function () {
 
             $('#master').on('click', function(e) {
-            if($(this).is(':checked',true))  
+            if($(this).is(':checked',true))
             {
-                $(".sub_chk").prop('checked', true);  
-            } else {  
-                $(".sub_chk").prop('checked',false);  
-            }  
+                $(".sub_chk").prop('checked', true);
+            } else {
+                $(".sub_chk").prop('checked',false);
+            }
             });
 
             $('.delete_all').on('click', function(e) {
-                var allVals = [];  
-                $(".sub_chk:checked").each(function() {  
+                var allVals = [];
+                $(".sub_chk:checked").each(function() {
                     allVals.push($(this).attr('data-id'));
-                });  
+                });
 
 
-                if(allVals.length <=0)  
-                {  
-                    alert("حدد عنصر واحد ع الاقل ");  
-                }  else {  
-                    var check = confirm("هل انت متاكد؟");  
-                    if(check == true){  
-                        var join_selected_values = allVals.join(","); 
+                if(allVals.length <=0)
+                {
+                    alert("حدد عنصر واحد ع الاقل ");
+                }  else {
+                    var check = confirm("هل انت متاكد؟");
+                    if(check == true){
+                        var join_selected_values = allVals.join(",");
                         $.ajax({
                             url: $(this).data('url'),
                             type: 'DELETE',
@@ -102,7 +102,7 @@
                             data: 'ids='+join_selected_values,
                             success: function (data) {
                                 if (data['success']) {
-                                    $(".sub_chk:checked").each(function() {  
+                                    $(".sub_chk:checked").each(function() {
                                         $(this).parents("tr").remove();
                                     });
                                     alert(data['success']);
@@ -121,8 +121,8 @@
                     $.each(allVals, function( index, value ) {
                         $('table tr').filter("[data-row-id='" + value + "']").remove();
                     });
-                    }  
-                }  
+                    }
+                }
             });
 
 

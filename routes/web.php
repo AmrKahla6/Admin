@@ -27,8 +27,8 @@ Route::group(['middleware' => ['adminauth:admin']], function () {
   Route::resource('adminpanel/privacy', 'adminprivacyController');
   Route::resource('adminpanel/conditions', 'adminconditionsController');
   Route::resource('adminpanel/setapp', 'adminchangelogoController');
-  Route::resource('adminpanel/items', 'adminitemController');
-  Route::delete('myitemssDeleteAll', 'adminitemController@deleteAll');
+  Route::resource('adminpanel/services', 'adminserviceController');
+  Route::delete('myservicesDeleteAll', 'adminserviceController@deleteAll');
   Route::resource('adminpanel/bills', 'adminillController');
   Route::resource('adminpanel/orders', 'adminorderController');
   Route::delete('myordersDeleteAll', 'adminorderController@deleteAll');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\City;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -71,7 +72,13 @@ class adminCityController extends Controller
      */
     public function show($id)
     {
-        //
+        $mainactive      = 'cities';
+        $subactive       = 'city';
+        $logo            = DB::table('settings')->value('logo');
+        $showcategory    = Category::find($id);
+        $city            = City::find($id);
+        $mytotal         = 0;
+        return view('admin.cities.show', compact('mainactive', 'subactive', 'logo', 'city' , 'showcategory','mytotal'));
     }
 
     /**
