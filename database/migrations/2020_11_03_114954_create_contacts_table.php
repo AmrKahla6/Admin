@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Items extends Migration
+class CreateContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,14 @@ class Items extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->integer('price');
-            $table->string('des');
-            $table->string('image');
-            $table->tinyInteger('servReq')->default(0);
-            $table->unsignedBigInteger('category_id');
-
-            $table->foreign('category_id')->references('id')->on('categories');
+	        $table->string('email');
+            $table->string('phone_number')->nullable();
+	        $table->string('subject')->nullable();
+	        $table->text('message');
             $table->timestamps();
-
         });
     }
 
@@ -35,6 +31,6 @@ class Items extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('contacts');
     }
 }
