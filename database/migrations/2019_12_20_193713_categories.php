@@ -25,6 +25,7 @@ class Categories extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *

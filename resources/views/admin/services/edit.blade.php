@@ -15,7 +15,7 @@
         <div class="box-body">
                   <div class="form-group col-md-6">
                     <label>اسم الخدمه </label>
-                    <input type="text" class="form-control" name="artitle" placeholder="ادخل اسم الخدمه" value="{{ $service->name }}" required>
+                    <input type="text" class="form-control" name="name" placeholder="ادخل اسم الخدمه" value="{{ $service->name }}" required>
                     @if ($errors->has('name'))
                         <div style="color: crimson;font-size: 18px;" class="error">{{ $errors->first('name') }}</div>
                     @endif
@@ -29,18 +29,13 @@
                     @endif
                   </div>
 
-                   <div class="form-group col-md-12">
-                    <label>صورة المنتج</label>
-                    <input type="file" name="image" >
-                    @if ($errors->has('image'))
-                        <div style="color: crimson;font-size: 18px;" class="error">{{ $errors->first('image') }}</div>
-                    @endif
-                  </div>
                   <div class="form-group col-md-12">
                     <label>اختر مشغل</label>
                     <div class="form-group col-md-12">
                         <select name="category_id" id="">
+                         @foreach ($categories as $category)
                                <option  value="{{$category->id}}">{{$category->name}}</option>
+                         @endforeach
                         </select>
                      </div>
                     </div>

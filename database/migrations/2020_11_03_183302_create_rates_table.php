@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Rates extends Migration
+class CreateRatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,14 +15,14 @@ class Rates extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('member_id');
             $table->unsignedBigInteger('category_id');
-            $table->integer('rate');
-            $table->date('created_date');
-            $table->time('created_time');
+            $table->integer('parent_id')->unsigned()->nullable();
+            $table->string('rate');
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('member_id')->references('id')->on('members');
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->timestamps();
         });
     }
 
@@ -33,6 +33,6 @@ class Rates extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('rates');
     }
 }

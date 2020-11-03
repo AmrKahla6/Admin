@@ -38,6 +38,15 @@ Route::group(['middleware' => ['adminauth:admin']], function () {
   Route::resource('adminpanel/wcategories', 'adminweightsController');
   Route::resource('adminpanel/cities', 'adminCityController');
   Route::resource('adminpanel/districts', 'adminDistrictController');
+  Route::get('adminpanel/contact-us', 'admincontactController@getContact');
+  Route::get('adminpanel/contact-us/{id}', 'admincontactController@showContact');
+  Route::post('adminpanel/contact-us', 'admincontactController@saveContact');
+  Route::delete('adminpanel/message/{id}', 'admincontactController@destroy');
+  Route::post('adminpanel/comments', 'admincommentController@store')->name('comments.store');
+  Route::post('adminpanel/rates', 'adminrateController@store')->name('rates.store');
+  Route::resource('adminpanel/appointment', 'adminappointmentController');
+
+
 });
 
 //admin logout

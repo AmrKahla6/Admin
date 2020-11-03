@@ -89,8 +89,8 @@ class adminserviceController extends Controller
         $subactive       = 'addservice';
         $logo            = DB::table('settings')->value('logo');
         $showservice     = Service::findorfail($id);
-
-        return view('admin.services.show', compact('mainactive', 'logo', 'subactive', 'showservice'));
+        $category        = Service::all();
+        return view('admin.services.show', compact('mainactive', 'logo', 'subactive', 'showservice','category'));
     }
 
     /**
@@ -104,9 +104,9 @@ class adminserviceController extends Controller
         $mainactive   = 'services';
         $subactive    = 'addservice';
         $logo         = DB::table('settings')->value('logo');
-        $category     = Category::findorfail($id);
+        $categories   = Category::all();
         $service      = Service::findorfail($id);
-        return view('admin.services.edit', compact('mainactive', 'logo', 'subactive', 'service' , 'category'));
+        return view('admin.services.edit', compact('mainactive', 'logo', 'subactive', 'service' , 'categories'));
     }
 
     /**
@@ -118,9 +118,9 @@ class adminserviceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $upservice = Service::find($id);
+        $newservice = Service::find($id);
         if (Input::has('servReq')) {
-            if ($upservice->servReq == 0) {
+            if ($newservice->servReq == 0) {
                 DB::table('services')->where('id', $id)->update(['servReq' => 1]);
                 session()->flash('success', 'تم طلب الخدمه بنجاح');
                 return back();
@@ -131,24 +131,26 @@ class adminserviceController extends Controller
             }
         } else {
             $this->validate($request, [
-                'artitle'     => 'required|max:200',
-                'price'       => 'required',
+                'name'              => 'required|max:200',
+                'des'               => 'required',
+               'price'              => 'required',
+              'category_id'         => 'required|exists:categories,id',
             ]);
+            $newservice->name                  = $request['name'];
+            $newservice->price                 = $request['price'];
+            $newservice->des                   = $request['des'];
+            $newservice->category_id           = $request['category_id'];
 
-
-            $upitem->artitle       = $request['artitle'];
-            $upitem->price         = $request['price'];
-            $upitem->details        = $request['ardesc'];
             if ($request->hasFile('image')) {
-                $item = $request['image'];
-                $img_name = rand(0, 999) . '.' . $item->getClientOriginalExtension();
-                $item->move(base_path('users/images/'), $img_name);
-                $upitem->image   = $img_name;
+                $service = $request['image'];
+                $img_name = rand(0, 999) . '.' . $service->getClientOriginalExtension();
+                $service->move(base_path('users/images/'), $img_name);
+                $newservice->image   = $img_name;
             }
-            $upitem->save();
 
+            $newservice->save();
 
-            session()->flash('success', 'تم تعديل المنتج بنجاح');
+            session()->flash('success', 'تم تعديل المشغل بنجاح');
             return back();
         }
     }

@@ -231,11 +231,11 @@
             <li class="treeview">
           @endif
             <a href="#">
-              <i class="fa fa-dashboard"></i> <span>الاقسام</span><i class="fa fa-angle-left pull-left"></i>
+              <i class="fa fa-dashboard"></i> <span>المشاغل</span><i class="fa fa-angle-left pull-left"></i>
             </a>
             <ul class="treeview-menu">
 
-              <li  @if($subactive=='category') class="active" @endif><a href="{{asset('adminpanel/categories')}}"><i class="fa fa-circle-o"></i>المشاغل</a></li>
+              <li  @if($subactive=='category') class="active" @endif><a href="{{asset('adminpanel/categories')}}"><i class="fa fa-circle-o"></i>كل المشاغل</a></li>
               {{-- <li  @if($subactive=='wcategory') class="active" @endif><a href="{{asset('adminpanel/wcategories')}}"><i class="fa fa-circle-o"></i>قسم الأوزان </a></li> --}}
             </ul>
 
@@ -278,19 +278,17 @@
             <li  @if($subactive=='itemorders') class="active" @endif><a href="{{asset('adminpanel/orders')}}"><i class="fa fa-circle-o"></i>كل الطلبات </a></li>
           </ul>
 
-        @if($mainactive=='bills')
+        @if($mainactive=='appointments')
           <li class="active treeview">
         @else
           <li class="treeview">
         @endif
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>الفواتير</span><i class="fa fa-angle-left pull-left"></i>
+            <i class="fa fa-dashboard"></i> <span>الحجوزات</span><i class="fa fa-angle-left pull-left"></i>
           </a>
           <ul class="treeview-menu">
-            <li  @if($subactive=='itemorders') class="active" @endif><a href="{{asset('adminpanel/bills')}}"><i class="fa fa-circle-o"></i>كل الفواتير </a></li>
+            <li  @if($subactive=='appointment') class="active" @endif><a href="{{asset('adminpanel/appointment')}}"><i class="fa fa-circle-o"></i>كل الحجوزات </a></li>
           </ul>
-
-
 
         @if($mainactive=='transfers')
           <li class="active treeview">
@@ -302,6 +300,18 @@
           </a>
           <ul class="treeview-menu">
               <li  @if($subactive=='transfer') class="active" @endif><a href="{{asset('adminpanel/transfers')}}"><i class="fa fa-circle-o"></i>كل التحويلات</a></li>
+          </ul>
+
+          @if($mainactive=='transfers')
+          <li class="active treeview">
+        @else
+          <li class="treeview">
+        @endif
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>تواصل معانا</span><i class="fa fa-angle-left pull-left"></i>
+          </a>
+          <ul class="treeview-menu">
+              <li  @if($subactive=='transfer') class="active" @endif><a href="{{asset('adminpanel/contact-us')}}"><i class="fa fa-circle-o"></i>كل الرسائل</a></li>
           </ul>
 
         @if($mainactive=='setting')

@@ -157,7 +157,7 @@ class adminmemberController extends Controller
         if ($deluser) {
 
             notification::where('user_id', $deluser->id)->delete();
-            
+
             $orders = order::where('user_id', $deluser->id)->get();
             foreach ($orders as $order) {
                 order_item::where('order_id', $order->id)->delete();
@@ -176,7 +176,7 @@ class adminmemberController extends Controller
         $users =  DB::table("members")->whereIn('id', explode(",", $ids))->get();
         foreach ($users as $user) {
             notification::where('user_id', $user->id)->delete();
-            
+
             $orders = order::where('user_id', $user->id)->get();
             foreach ($orders as $order) {
                 order_item::where('order_id', $user->id)->delete();

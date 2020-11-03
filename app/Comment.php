@@ -3,20 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
-use App\Service;
+use App\member;
 
 class Comment extends Model
 {
     protected $guarded = [];
 
-    public function user()
+    public function member()
     {
-        return $this->belongsTo(User::class);
-    }// end of relation
+        return $this->belongsTo(member::class , 'member_id');
+    }
 
-    public function service()
+
+    public function replies()
     {
-        return $this->belongsTo(Service::class);
-    }// end of relation
+        return $this->hasMany(Comment::class, 'parent_id');
+    }
 }

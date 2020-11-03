@@ -17,6 +17,29 @@
                     <label>السعر [ريال]</label>
                     <input type="text" class="form-control" value="{{$showservice->price}}" readonly>
                 </div>
+                <div class="form-group col-md-12">
+                    @php
+                       $newservice = \App\Category::find($showservice->category_id);
+                    @endphp
+                    <label>اسم المشغل</label>
+                     <input type="text" class="form-control" value="{{$newservice ? $newservice->name : ''}}" readonly>
+                   </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                حجز موعد
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href='{{asset("adminpanel/appointment/{id}")}}' class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
 
             </div>
@@ -43,7 +66,6 @@
                     <label>تفاصيل الخدمه</label>
                     <textarea rows='10' type="text" class="form-control" readonly>{!! $showservice->des !!}</textarea>
                 </div>
-
             </div>
         </div>
 @endsection
