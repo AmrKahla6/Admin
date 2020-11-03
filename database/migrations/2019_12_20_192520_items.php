@@ -15,20 +15,13 @@ class Items extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('category_id');
-            $table->integer('code')->nullable();
             $table->string('artitle');
-            $table->string('entitle');
             $table->integer('price');
-            $table->string('discountprice')->nullable();
-            $table->string('offer');
-            $table->string('ardesc');
-            $table->string('endesc');
-            $table->string('whatsapp');
+            $table->string('details');
+            $table->string('image');
             $table->boolean('suspensed')->default(0);
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
