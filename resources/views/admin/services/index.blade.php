@@ -15,11 +15,21 @@
                     <table id="example3" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th> اسم المنتج</th>
-                                <th>مشاهدة</th>
-                                <th> تعطيل </th>
-                                <th> تعديل </th>
-                                <th> حذف</th>
+                                <th>
+                                     اسم المنتج
+                                </th>
+                                <th>
+                                    مشاهدة
+                                </th>
+                                <th>
+                                    طلب الخدمه
+                                </th>
+                                <th>
+                                     تعديل
+                                </th>
+                                <th>
+                                  حذف
+                                </th>
                                 <th width="50px"><input type="checkbox" id="master"></th>
                             </tr>
                         </thead>
@@ -32,9 +42,9 @@
                                 </td>
                                 <td>
                                 {{ Form::open(array('method' => 'patch',"onclick"=>"return confirm('هل انت متاكد ؟!')",'files' => true,'url' =>'adminpanel/services/'.$service->id )) }}
-                                    <input type="hidden" name="suspensed" >
+                                    <input type="hidden" name="servReq" >
                                     <button type="submit" class="btn btn-default">
-                                    @if($service->suspensed == 1)
+                                    @if($service->servReq == 1)
                                     <i style="color:crimson" class="fa fa-lock" aria-hidden="true"></i>
                                     @else
                                     <i style="color:#1FAB89" class="fa fa-unlock" aria-hidden="true"></i>

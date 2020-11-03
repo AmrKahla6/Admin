@@ -19,6 +19,7 @@ class Items extends Migration
             $table->integer('price');
             $table->string('des');
             $table->string('image');
+            $table->tinyInteger('servReq')->default(0);
             $table->unsignedBigInteger('category_id');
 
             $table->foreign('category_id')->references('id')->on('categories');

@@ -118,15 +118,15 @@ class adminserviceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $upitem = item::find($id);
-        if (Input::has('suspensed')) {
-            if ($upitem->suspensed == 0) {
-                DB::table('items')->where('id', $id)->update(['suspensed' => 1]);
-                session()->flash('success', 'تم تعطيل المنتج بنجاح');
+        $upservice = Service::find($id);
+        if (Input::has('servReq')) {
+            if ($upservice->servReq == 0) {
+                DB::table('services')->where('id', $id)->update(['servReq' => 1]);
+                session()->flash('success', 'تم طلب الخدمه بنجاح');
                 return back();
             } else {
-                DB::table('items')->where('id', $id)->update(['suspensed' => 0]);
-                session()->flash('success', 'تم تفعيل المنتج بنجاح');
+                DB::table('services')->where('id', $id)->update(['servReq' => 0]);
+                session()->flash('success', 'تم الغاء الخدمه بنجاح');
                 return back();
             }
         } else {
